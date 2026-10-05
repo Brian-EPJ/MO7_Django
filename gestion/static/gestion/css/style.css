@@ -1,28 +1,29 @@
 :root {
-    /* Fondo oscuro profundo y elegante (Obsidiana) */
-    --aw-bg: #0d0f12;
-    --aw-text: #f0f2f5;
+    /* Fondo Azul Noche profundo (Limpio y premium, cero tonos cafés) */
+    --aw-bg: #090f1b;
+    --aw-text: #f8fafc; /* Blanco nítido y brillante */
     
-    /* Tonos dorados/champagne para el color principal */
-    --aw-primary: #d4af37;
-    --aw-primary-dark: #aa8c2c;
-    --aw-primary-rgb: 212, 175, 55; /* Añadido para las sombras */
+    /* Dorado claro y vibrante */
+    --aw-primary: #e2b75f; 
+    --aw-primary-dark: #c09641; 
+    --aw-primary-rgb: 226, 183, 95; 
     
-    /* Textos secundarios y bordes más sutiles */
-    --aw-text-muted: #8b929e;
-    --aw-card-border: rgba(255, 255, 255, 0.05);
+    /* Textos secundarios en gris azulado para mantener la armonía */
+    --aw-text-muted: #94a3b8;
     
-    /* Bordes ligeramente menos redondeados para un look más serio */
-    --aw-radius: 14px;
+    /* Bordes sutiles en blanco translúcido */
+    --aw-card-border: rgba(255, 255, 255, 0.08); 
     
-    /* Colores de estado más sobrios (esmeralda y rojo clásico) */
-    --aw-accent: #2ecc71;
-    --aw-danger: #e74c3c;
+    --aw-radius: 12px;
+    
+    /* Colores de estado vibrantes */
+    --aw-accent: #10b981; /* Esmeralda limpio */
+    --aw-danger: #ef4444; /* Rojo clásico */
 }
 
 body {
-    /* Gradiente ajustado a los nuevos tonos oscuros */
-    background: radial-gradient(circle at top left, #1a1d24 0%, var(--aw-bg) 60%);
+    /* Gradiente suave de azul marino a azul noche */
+    background: radial-gradient(circle at top left, #131d33 0%, var(--aw-bg) 70%);
     color: var(--aw-text);
     min-height: 100dvh;
 }
@@ -35,34 +36,39 @@ body {
     font-weight: 700;
     font-size: 22px;
     color: var(--aw-text);
+    letter-spacing: 0.5px; 
 }
 
 .nav-link {
     color: var(--aw-text-muted);
+    transition: color 0.2s ease;
 }
 
 .nav-link:hover {
-    color: var(--aw-text);
+    color: var(--aw-primary); 
 }
 
 .aw-btn-outline {
-    border: 1px solid var(--aw-card-border);
+    border: 1px solid var(--aw-card-border); 
     color: var(--aw-text);
     background: transparent;
     padding: 4px 20px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
 .aw-btn-outline:hover {
-    background: var(--aw-card-border);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--aw-text);
     color: var(--aw-text);
 }
 
 .aw-btn-primary, .btn-primary {
     background: linear-gradient(135deg, var(--aw-primary), var(--aw-primary-dark));
     border: none;
-    /* Texto oscuro sobre fondo dorado da un toque de lujo */
-    color: #0d0f12; 
-    border-radius: 10px; /* Botones un poco más cuadrados */
+    /* Texto azul marino muy oscuro para contrastar con el fondo dorado */
+    color: #050810; 
+    border-radius: 8px;
     padding: 8px 18px;
     font-weight: 600;
     transition: transform .15s ease, box-shadow .15s ease;
@@ -70,27 +76,29 @@ body {
 
 .aw-btn-primary:hover, .btn-primary:hover {
     transform: translateY(-2px);
-    /* Sombra dinámica usando la nueva variable RGB */
-    box-shadow: 0 8px 20px rgba(var(--aw-primary-rgb), 0.25);
-    color: #0d0f12;
+    box-shadow: 0 8px 20px rgba(var(--aw-primary-rgb), 0.35);
+    color: #050810;
 }
 
 .aw-card, .card {
-    background: rgba(255, 255, 255, 0.025); /* Tarjetas ligeramente más transparentes */
+    /* Tarjetas con un azul ligeramente más claro para separarse del fondo */
+    background: rgba(19, 29, 51, 0.4); 
     border: 1px solid var(--aw-card-border);
     border-radius: var(--aw-radius);
     color: var(--aw-text);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
     transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .aw-card:hover, .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4); /* Sombra oscura para dar profundidad */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    border-color: rgba(var(--aw-primary-rgb), 0.3); /* Destello dorado al pasar el mouse */
 }
 
 .aw-card h4 {
     font-size: 20px;
+    font-weight: 600;
 }
 
 .aw-monto-positivo {
@@ -104,38 +112,37 @@ body {
 }
 
 .form-control, .form-select {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(19, 29, 51, 0.6);
     border: 1px solid var(--aw-card-border);
     color: var(--aw-text);
-    border-radius: 12px;
-    padding: 8px 14px;
+    border-radius: 8px;
+    padding: 10px 14px;
 }
 
 .form-control:focus, .form-select:focus {
-    background: rgba(255, 255, 255, 0.07);
+    background: rgba(19, 29, 51, 0.9);
     border-color: var(--aw-primary);
     color: var(--aw-text);
-    /* Glow dorado en los inputs al hacer focus */
     box-shadow: 0 0 0 .2rem rgba(var(--aw-primary-rgb), 0.2);
 }
 
 label {
     color: var(--aw-text-muted);
     font-weight: 500;
+    margin-bottom: 6px;
 }
 
 .aw-input::placeholder {
-    color: rgba(255, 255, 255, 0.2); /* Placeholder un poco más sutil */
+    color: rgba(248, 250, 252, 0.3);
 }
 
-/* Para darle el efecto translúcido que acompaña al diseño elegante */
 .aw-navbar {
-    background: rgba(13, 15, 18, 0.6);
+    background: rgba(9, 15, 27, 0.8);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--aw-card-border);
 }
 
 .aw-footer {
-    background: rgba(13, 15, 18, 0.4);
+    background: rgba(9, 15, 27, 0.6);
     border-top: 1px solid var(--aw-card-border);
 }
