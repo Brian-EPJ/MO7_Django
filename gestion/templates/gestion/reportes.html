@@ -1,0 +1,41 @@
+{% extends "gestion/base.html" %}
+{% block title %}Reportes{% endblock %}
+{% block content %}
+<main class="container pt-5">
+    <h1>Reportes</h1>
+    <p>Consultas personalizadas (ORM, <code>raw()</code> y cursores)</p>
+
+    <h2 class="h4 mt-4">Resumen por cuenta <small class="text-secondary">(annotate)</small></h2>
+    <div class="table-responsive"><table class="table table-dark table-hover align-middle">
+        <thead><tr><th>Cuenta</th><th>Cliente</th><th class="text-end">Saldo</th><th class="text-end">Depósitos</th><th class="text-end">Egresos</th><th class="text-end">Mov.</th></tr></thead>
+        <tbody>{% for c in resumen %}
+            <tr><td>{{ c.numero_cuenta }}</td><td>{{ c.cliente.nombre }}</td><td class="text-end">${{ c.saldo }}</td>
+            <td class="text-end aw-monto-positivo">${{ c.total_depositos }}</td><td class="text-end aw-monto-negativo">${{ c.total_egresos }}</td><td class="text-end">{{ c.num_transacciones }}</td></tr>
+        {% empty %}<tr><td colspan="6" class="text-center">Sin datos</td></tr>{% endfor %}</tbody>
+    </table></div>
+
+    <h2 class="h4 mt-4">Cuentas con saldo mayor a <small class="text-secondary">(SQL con raw())</small></h2>
+    <form method="get" class="row g-2 mb-3">
+        <div class="col-auto"><input type="number" step="0.01" min="0" name="saldo_minimo" value="{{ saldo_minimo }}" class="form-control"></div>
+        <div class="col-auto"><button class="btn btn-primary" type="submit">Filtrar</button></div>
+    </form>
+    <ul class="list-group mb-3">{% for c in cuentas_saldo %}
+        <li class="list-group-item bg-transparent text-light d-flex justify-content-between"><span>{{ c.numero_cuenta }} · {{ c.cliente_nombre }}</span><span class="aw-monto-positivo">${{ c.saldo }}</span></li>
+    {% empty %}<li class="list-group-item bg-transparent text-light">Ninguna cuenta supera ese saldo</li>{% endfor %}</ul>
+
+    <div class="row g-4">
+        <div class="col-md-6"><h2 class="h4">Totales por tipo <small class="text-secondary">(cursor)</small></h2>
+            <ul class="list-group">{% for t in totales_tipo %}
+                <li class="list-group-item bg-transparent text-light d-flex justify-content-between"><span>{{ t.tipo }} ({{ t.cantidad }})</span><span>${{ t.total }}</span></li>
+            {% empty %}<li class="list-group-item bg-transparent text-light">Sin transacciones</li>{% endfor %}</ul></div>
+        <div class="col-md-6"><h2 class="h4">Cuentas sin movimientos</h2>
+            <ul class="list-group">{% for c in sin_movimientos %}
+                <li class="list-group-item bg-transparent text-light">{{ c.numero_cuenta }} · {{ c.cliente.nombre }}</li>
+            {% empty %}<li class="list-group-item bg-transparent text-light">Todas tienen movimientos</li>{% endfor %}</ul>
+            <h2 class="h4 mt-4">Clientes sin teléfono</h2>
+            <ul class="list-group">{% for c in sin_telefono %}
+                <li class="list-group-item bg-transparent text-light">{{ c.nombre }} · {{ c.email }}</li>
+            {% empty %}<li class="list-group-item bg-transparent text-light">Todos tienen teléfono</li>{% endfor %}</ul></div>
+    </div>
+</main>
+{% endblock %}

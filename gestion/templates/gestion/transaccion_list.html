@@ -1,0 +1,40 @@
+{% extends "gestion/base.html" %}
+{% block title %}Transacciones{% endblock %}
+{% block content %}
+<main>
+    <section class="container pt-5">
+        <div class="row align-items-center">
+            <div class="col-6">
+                <h1 class="m-0">Transacciones</h1>
+                <p>Historial de movimientos</p>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <a href="{% url 'transaccion_create' %}" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Nueva transacción</a>
+            </div>
+        </div>
+    </section>
+    <section class="container">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle">
+                <thead><tr><th>Fecha</th><th>Cuenta</th><th>Cliente</th><th>Tipo</th><th>Descripción</th><th class="text-end">Monto</th></tr></thead>
+                <tbody>
+                {% for t in transacciones %}
+                    <tr>
+                        <td>{{ t.fecha|date:"d/m/Y H:i" }}</td>
+                        <td><a href="{% url 'cuenta_detail' t.cuenta.pk %}">{{ t.cuenta.numero_cuenta }}</a></td>
+                        <td>{{ t.cuenta.cliente.nombre }}</td>
+                        <td>{{ t.get_tipo_display }}</td>
+                        <td>{{ t.descripcion|default:"—" }}</td>
+                        <td class="text-end {% if t.tipo == 'DEPOSITO' %}aw-monto-positivo{% else %}aw-monto-negativo{% endif %}">
+                            {% if t.tipo == 'DEPOSITO' %}+{% else %}-{% endif %}${{ t.monto }}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="6" class="text-center">Todavía no hay transacciones registradas</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+{% endblock %}

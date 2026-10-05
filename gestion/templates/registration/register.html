@@ -1,0 +1,21 @@
+{% extends "gestion/base.html" %}
+{% block title %}Registrarse{% endblock %}
+{% block content %}
+<main>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-5">
+                <div class="card aw-card aw-auth-card p-4">
+                    <h1 class="text-center mb-4">Crear usuario</h1>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn aw-btn-primary w-100 mt-4">Registrarme</button>
+                    </form>
+                    <p class="text-center mt-3 mb-0">¿Ya tienes usuario? <a href="{% url 'login' %}">Inicia sesión</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

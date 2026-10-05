@@ -1,0 +1,22 @@
+{% extends "gestion/base.html" %}
+{% block title %}Iniciar sesión{% endblock %}
+{% block content %}
+    <main>
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card aw-card aw-auth-card p-4">
+                        <h1 class="text-center mb-4">Iniciar sesion</h1>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            <button type="submit" class="btn aw-btn-primary w-100 mt-4">Ingresar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    
+{% endblock %}

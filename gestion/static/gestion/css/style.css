@@ -1,0 +1,141 @@
+:root {
+    /* Fondo oscuro profundo y elegante (Obsidiana) */
+    --aw-bg: #0d0f12;
+    --aw-text: #f0f2f5;
+    
+    /* Tonos dorados/champagne para el color principal */
+    --aw-primary: #d4af37;
+    --aw-primary-dark: #aa8c2c;
+    --aw-primary-rgb: 212, 175, 55; /* Añadido para las sombras */
+    
+    /* Textos secundarios y bordes más sutiles */
+    --aw-text-muted: #8b929e;
+    --aw-card-border: rgba(255, 255, 255, 0.05);
+    
+    /* Bordes ligeramente menos redondeados para un look más serio */
+    --aw-radius: 14px;
+    
+    /* Colores de estado más sobrios (esmeralda y rojo clásico) */
+    --aw-accent: #2ecc71;
+    --aw-danger: #e74c3c;
+}
+
+body {
+    /* Gradiente ajustado a los nuevos tonos oscuros */
+    background: radial-gradient(circle at top left, #1a1d24 0%, var(--aw-bg) 60%);
+    color: var(--aw-text);
+    min-height: 100dvh;
+}
+
+.navbar-toggler {
+    background: var(--aw-card-border);
+}
+
+.aw-brand {
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--aw-text);
+}
+
+.nav-link {
+    color: var(--aw-text-muted);
+}
+
+.nav-link:hover {
+    color: var(--aw-text);
+}
+
+.aw-btn-outline {
+    border: 1px solid var(--aw-card-border);
+    color: var(--aw-text);
+    background: transparent;
+    padding: 4px 20px;
+}
+
+.aw-btn-outline:hover {
+    background: var(--aw-card-border);
+    color: var(--aw-text);
+}
+
+.aw-btn-primary, .btn-primary {
+    background: linear-gradient(135deg, var(--aw-primary), var(--aw-primary-dark));
+    border: none;
+    /* Texto oscuro sobre fondo dorado da un toque de lujo */
+    color: #0d0f12; 
+    border-radius: 10px; /* Botones un poco más cuadrados */
+    padding: 8px 18px;
+    font-weight: 600;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.aw-btn-primary:hover, .btn-primary:hover {
+    transform: translateY(-2px);
+    /* Sombra dinámica usando la nueva variable RGB */
+    box-shadow: 0 8px 20px rgba(var(--aw-primary-rgb), 0.25);
+    color: #0d0f12;
+}
+
+.aw-card, .card {
+    background: rgba(255, 255, 255, 0.025); /* Tarjetas ligeramente más transparentes */
+    border: 1px solid var(--aw-card-border);
+    border-radius: var(--aw-radius);
+    color: var(--aw-text);
+    backdrop-filter: blur(8px);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.aw-card:hover, .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4); /* Sombra oscura para dar profundidad */
+}
+
+.aw-card h4 {
+    font-size: 20px;
+}
+
+.aw-monto-positivo {
+    color: var(--aw-accent);
+    font-weight: 600;
+}
+
+.aw-monto-negativo {
+    color: var(--aw-danger);
+    font-weight: 600;
+}
+
+.form-control, .form-select {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--aw-card-border);
+    color: var(--aw-text);
+    border-radius: 12px;
+    padding: 8px 14px;
+}
+
+.form-control:focus, .form-select:focus {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--aw-primary);
+    color: var(--aw-text);
+    /* Glow dorado en los inputs al hacer focus */
+    box-shadow: 0 0 0 .2rem rgba(var(--aw-primary-rgb), 0.2);
+}
+
+label {
+    color: var(--aw-text-muted);
+    font-weight: 500;
+}
+
+.aw-input::placeholder {
+    color: rgba(255, 255, 255, 0.2); /* Placeholder un poco más sutil */
+}
+
+/* Para darle el efecto translúcido que acompaña al diseño elegante */
+.aw-navbar {
+    background: rgba(13, 15, 18, 0.6);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--aw-card-border);
+}
+
+.aw-footer {
+    background: rgba(13, 15, 18, 0.4);
+    border-top: 1px solid var(--aw-card-border);
+}

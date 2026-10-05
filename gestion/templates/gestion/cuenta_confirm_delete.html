@@ -1,0 +1,22 @@
+{% extends "gestion/base.html" %}
+{% block title %}Eliminar cuenta{% endblock %}
+{% block content %}
+<main>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4 text-center">
+                <div class="card aw-card p-4">
+                    <h1>Eliminar Cuenta</h1>
+                    <i class="bi bi-exclamation-triangle-fill text-warning fs-1 mb-3"></i>
+                    <p>¿Confirmas que deseas eliminar la cuenta <strong>{{ object.numero_cuenta }}</strong>? Se borrarán también sus transacciones.</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <a href="{% url 'cuenta_list' %}" class="btn aw-btn-outline btn-sm">Cancelar</a>
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Sí, eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

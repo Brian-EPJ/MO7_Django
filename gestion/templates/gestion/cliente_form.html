@@ -1,0 +1,25 @@
+{% extends "gestion/base.html" %}
+{% block title %}Formulario cliente{% endblock %}
+{% block content %}
+<main>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="card aw-card p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1>Datos del cliente</h1>
+                        <a href="{% url 'cliente_list' %}" class="btn btn-sm btn-danger">Cancelar</a>
+                    </div>
+                     <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success mt-4">
+                            <i class="bi bi-check-circle"></i>  Guardar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

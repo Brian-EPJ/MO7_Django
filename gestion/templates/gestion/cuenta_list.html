@@ -1,0 +1,47 @@
+{% extends "gestion/base.html" %}
+{% block title %}Cuentas{% endblock %}
+{% block content %}
+<main>
+    <section class="container pt-5">
+        <div class="row align-items-center">
+            <div class="col-6">
+                <h1 class="m-0">Cuentas</h1>
+                <p>Cuentas Alke Wallet</p>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <a href="{% url 'cuenta_create' %}" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Nueva cuenta</a>
+            </div>
+        </div>
+    </section>
+    <section class="container">
+        <div class="row g-3 aw-stagger justify-content-center">
+            {% for cuenta in cuentas %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card aw-card p-3 h-100">
+                    <div class="d-flex flex-column gap-2">
+                        <h3 class="mb-0">{{ cuenta.numero_cuenta }}</h3>
+                        <p class="mb-0">{{ cuenta.cliente.nombre }}</p>
+                        <div>
+                            <h4>Saldo</h4>
+                            <p class="aw-saldo-cliente aw-monto-positivo fs-5 mb-2" data-target="{{ cuenta.saldo|stringformat:'f' }}">$0</p>
+                        </div>
+                        <div>
+                            {% for etiqueta in cuenta.etiquetas.all %}
+                                <span class="badge text-bg-secondary">{{ etiqueta.nombre }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <a href="{% url 'cuenta_detail' cuenta.pk %}" class="btn btn-sm aw-btn-outline"><i class="bi bi-eye"></i> Ver</a>
+                            <a href="{% url 'cuenta_update' cuenta.pk %}" class="btn btn-sm aw-btn-outline"><i class="bi bi-pencil"></i> Editar</a>
+                            <a href="{% url 'cuenta_delete' cuenta.pk %}" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-md-6 col-lg-4"><p class="text-center">Todavía no hay cuentas registradas</p></div>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+{% endblock %}

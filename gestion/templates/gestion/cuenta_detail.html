@@ -1,0 +1,46 @@
+{% extends "gestion/base.html" %}
+{% block title %}Cuenta {{ cuenta.numero_cuenta }}{% endblock %}
+{% block content %}
+<main>
+    <section class="container pt-5">
+        <div class="card aw-card p-4 mb-4">
+            <div class="row align-items-center g-3">
+                <div class="col-md-6">
+                    <h1 class="m-0">{{ cuenta.numero_cuenta }}</h1>
+                    <p class="mb-1">{{ cuenta.cliente.nombre }} · {{ cuenta.cliente.email }}</p>
+                    <small>Creada el {{ cuenta.fecha_creacion|date:"d/m/Y" }}</small>
+                    <div class="mt-2">
+                        {% for etiqueta in cuenta.etiquetas.all %}<span class="badge text-bg-secondary">{{ etiqueta.nombre }}</span> {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h4>Saldo disponible</h4>
+                    <p class="aw-saldo-cliente aw-monto-positivo fs-3" data-target="{{ cuenta.saldo|stringformat:'f' }}">$0</p>
+                    <a href="{% url 'transaccion_create' %}?cuenta={{ cuenta.pk }}" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"></i> Nueva transacción</a>
+                    <a href="{% url 'cuenta_list' %}" class="btn aw-btn-outline btn-sm">Volver</a>
+                </div>
+            </div>
+        </div>
+        <h2 class="mb-3">Movimientos</h2>
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle">
+                <thead><tr><th>Fecha</th><th>Tipo</th><th>Descripción</th><th class="text-end">Monto</th></tr></thead>
+                <tbody>
+                {% for t in transacciones %}
+                    <tr>
+                        <td>{{ t.fecha|date:"d/m/Y H:i" }}</td>
+                        <td>{{ t.get_tipo_display }}</td>
+                        <td>{{ t.descripcion|default:"—" }}</td>
+                        <td class="text-end {% if t.tipo == 'DEPOSITO' %}aw-monto-positivo{% else %}aw-monto-negativo{% endif %}">
+                            {% if t.tipo == 'DEPOSITO' %}+{% else %}-{% endif %}${{ t.monto }}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="4" class="text-center">Esta cuenta aún no tiene movimientos</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+{% endblock %}

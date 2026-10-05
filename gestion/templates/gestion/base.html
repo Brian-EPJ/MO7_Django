@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Alke Wallet{% endblock %}</title>
+
+    <!--BOOTSTRAP-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--BOOTSTRAP ICONS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <!--TIPOGRAFIA-->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- ESTILOS -->
+    <link rel="stylesheet" href="{% static 'gestion/css/style.css' %}">
+
+</head>
+<!-- Clases agregadas: d-flex, flex-column, min-vh-100 para que el footer se quede abajo -->
+<body class="d-flex flex-column min-vh-100">
+    
+    <!-- Quité bg-dark para que el diseño personalizado se aplique correctamente -->
+    <nav class="navbar navbar-expand-lg aw-navbar sticky-top">
+        <div class="container">
+            <a href="{% url 'cliente_list'%}" class="navbar-brand aw-brand">
+               <i class="bi bi-wallet2"></i> Alke Wallet
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_alke">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="nav_alke">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                    
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'cliente_list'%}" class="nav-link"><i class="bi bi-people"></i> Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'cliente_create' %}" class="nav-link"><i class="bi bi-plus-circle"></i> Nuevo Cliente</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'cuenta_list' %}" class="nav-link"><i class="bi bi-bank"></i> Cuentas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'transaccion_list' %}" class="nav-link"><i class="bi bi-arrow-left-right"></i> Transacciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'reportes' %}" class="nav-link"><i class="bi bi-graph-up"></i> Reportes</a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                             <button type="submit" class="btn btn-sm aw-btn-outline"><i class="bi bi-box-arrow-right"></i> Salir</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'registro' %}" class="nav-link btn btn-sm aw-btn-outline"><i class="bi bi-person-plus-fill"></i> Registrarse</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div>
+        {% if messages %}
+            <div class="container mt-3">
+                {% for message in messages %}
+                    <div class="alert aw-alert alert-dismissible fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    
+    <!-- Envolvemos el contenido principal y le damos flex-grow-1 -->
+    <main class="flex-grow-1">
+        {% block content %}
+
+        {% endblock %}
+    </main>
+
+    <!-- Usamos mt-auto (margin-top: auto) de Bootstrap para fijarlo abajo -->
+    <footer class="aw-footer text-center py-3 mt-auto">
+        <p class="m-0 text-muted">&copy; {% now "Y" %} Alke Wallet</p>
+    </footer>
+    
+    <!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'gestion/js/main.js' %}"></script>
+</body>
+</html>
