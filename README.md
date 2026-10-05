@@ -32,7 +32,7 @@ gestion/             App principal
 
 ## Base de datos
 - **Desarrollo (por defecto):** SQLite, sin configuración (`db.sqlite3`).
-- **Producción:** PostgreSQL con `psycopg2`. Define en `.env`: `DB_ENGINE=postgres`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT` (ver `.env.example`).
+- Producción / MySQL: Para usar MySQL, define en tu archivo .env: DB_ENGINE=mysql, DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT.
 
 ## Ejecutar localmente
 ```bash
@@ -45,6 +45,8 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 - App: http://127.0.0.1:8000/clientes/ (pide login) · Registro: `/registro/` · Admin: `/admin/`
+
+**Nota**: Si utilizas MySQL como motor de base de datos, asegúrate de que la librería mysqlclient esté instalada en tu entorno virtual.
 
 ## Rutas principales
 `/clientes/` · `/cuentas/` · `/cuentas/<pk>/` · `/transacciones/` · `/transacciones/nueva/` · `/reportes/` · `/registro/` · `/accounts/login/`

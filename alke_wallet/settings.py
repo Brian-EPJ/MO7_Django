@@ -79,17 +79,17 @@ WSGI_APPLICATION = 'alke_wallet.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-# DB_ENGINE=sqlite (por defecto, desarrollo) | DB_ENGINE=postgres (produccion, requiere psycopg2)
-# Para PostgreSQL define en .env: DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT
-if os.getenv('DB_ENGINE', 'sqlite') == 'postgres':
+# DB_ENGINE=sqlite (por defecto, desarrollo) | DB_ENGINE=mysql (produccion, requiere mysqlclient o pymysql)
+# Para MySQL define en .env: DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT
+if os.getenv('DB_ENGINE', 'sqlite') == 'mysql':
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
+            'ENGINE': 'django.db.backends.mysql',
             'NAME': os.getenv('DB_NAME'),
             'USER': os.getenv('DB_USER'),
             'PASSWORD': os.getenv('DB_PASSWORD'),
             'HOST': os.getenv('DB_HOST', 'localhost'),
-            'PORT': os.getenv('DB_PORT', '5432'),
+            'PORT': os.getenv('DB_PORT', '3306'),
         }
     }
 else:
